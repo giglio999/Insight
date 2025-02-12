@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Recuperação de senha{% endblock %}
+
+
+{% block content %}
+<form method="POST">
+    <br />
+    <h3 align="center" class="h3-title">Recuperar senha</h3>
+    <p class="instSenha" style="text-align: center;">Um email será enviado para a recuperação de senha.</p>
+    <br />
+    <div class="form-group">
+        <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            name="email" 
+            placeholder="Digite o email"
+        />
+    </div>
+    
+    <br />
+    
+    <div class="btnentrar">
+        <button type="submit" class="btn btn-primary">Enviar email</button>
+    </div>
+    
+</form>
+{% endblock %}

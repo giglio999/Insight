@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+      html, body {
+        background-image:url('static/img/wallpaper.png');
+        background-color: #cccccc;
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .navbar-nav{
+        padding-top: 1%;
+        background-color: white;
+        height:31px;
+      }
+
+      .navbar-nav a{
+        list-style: none;
+        display: inline-block;
+        margin: 0 20px;
+        position: relative;
+      }
+    
+      .navbar-nav a{
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        text-transform: uppercase;
+      }
+    
+      .navbar-nav a::after{
+        content: '';
+        height: 3px;
+        width: 0;
+        background: rgba(19, 0, 115, 0.742);
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        transition: 0.5s;
+      }
+    
+      .navbar-nav a:hover::after{
+          width: 100%;
+      }
+
+      .h3-title {
+        padding-top: 6%;
+        font-size: 32px;
+        line-height: 1.125;
+        font-weight: 600;
+        letter-spacing: .004em;
+        font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+        color: #1d1d1f;
+      }
+
+      .form-group {
+        text-align: center;
+        
+      }
+
+      .form-control {
+        border: 1px solid;
+        border-radius: 12px;
+        margin-bottom: .82353rem;
+        padding: 1.05882rem .94118rem 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        text-align: left;
+        cursor: pointer;
+        font-weight: bold;
+        height: 25px;
+      }
+
+      .btnentrar{
+        text-align: center;
+        
+      }
+
+      button{
+        font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+        width: 200px;
+        padding: 15px 0;
+        text-align: center;
+        margin: 20px 10px;
+        border-radius: 12px;
+        font-weight: bold;
+        border: 1px solid #1d1d1f;            
+        background: white;
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .esqsenha {
+        display:block;
+        max-width: 800px;
+        text-align: center;
+        padding-left: 23%;
+      }
+
+      .condicoes {
+        display:block;
+        max-width: 800px;
+        text-align: center;
+      }
+
+      .saida {
+        width: 100px;
+      }
+
+      .search-box {
+        text-align: center;
+        margin-top: 2%;
+        
+      }
+
+      input{
+        flex: 1;
+        height: 50px;
+        background: white;
+        text-align: center;
+        font-size: 15px;
+        border-radius: 0px;
+        border: solid 3px #333;
+        color: #333;
+      }
+      ::placeholder{
+        color: #555;
+      }
+
+      .result-box ul{
+        border-top: 2px solid #999;
+        padding: 15px 10px
+      }
+
+      .result-box li{
+        list-style: none;
+        border-radius: 3px;
+        padding: 0px 10px;
+      }
+
+      .result-box ul li:hover{
+        background: #e9f3ff;
+      }
+
+      .result-box{
+        max-height: 300px;
+        overflow-y: scroll;
+
+      }
+
+      .insight{
+        text-align: center;
+        font-size: 70px;
+        font-weight: 600;
+        background-image: linear-gradient(to left, #000000, #3900d7);
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+       
+      }
+     
+      .check-box{
+        height: 12px; 
+        color: white;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .back-box{
+        background-color: white;
+        width: 270px;
+        height: 30px;
+        border-radius: 20px;
+        text-align: center;
+        margin-left: 41%;
+      }
+
+    </style>
+
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">   
+        <div class="collapse navbar-collapse" id="navbar">
+          <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" id="home" href="/">Home</a>
+            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+
+            {% else %}
+            <a class="nav-item nav-link" id="login" href="/login">Login</a>
+            <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+            <a class="nav-item nav-link" id="saibaMais" href="/saiba-mais">Saiba mais</a>
+            {% endif %}
+            <a class="nav-item nav-link" id="nucleTi" href="https://www.nucleotiuniso.com.br/home" target="_blank">Núcleo de TI</a>
+            <h1 class="insight">INSIGHT</h1>
+            </a>
+          </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %} 
+      {% for category, message in messages %} 
+      {% if category == 'error' %}
+      <div class="alert alert-danger alter-dismissable fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% else %}
+      <div class="alert alert-success alter-dismissable fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %}
+      {% endfor %} 
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+    type="text/javascript" src="{{ url_for('static', filename='index.js') }}"
+    ></script>
+    <script 
+    type="text/javascript" src="{{ url_for('static', filename='autocomplete.js') }}"
+    ></script> 
+    
+    
+</body>
+</html>

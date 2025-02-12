@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %}
+
+
+{% block content %}
+<form method="POST">
+    <br />
+    <h3 align="center" class="h3-title">Entrar</h3>
+    <br />
+    <div class="form-group">
+        <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            name="email" 
+            placeholder="Digite o email"
+        />
+    </div>
+    
+    <div class="form-group">
+        <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            name="password" 
+            placeholder="Digite a senha"
+        />
+    </div>
+    <br />
+    <div class="esqsenha">
+        <a id="recuperarSenha" href="/recuperar-senha">Esqueci a senha</a>.</label>
+    </div>
+    <br />
+    <div class="btnentrar">
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </div>
+    
+</form>
+{% endblock %}

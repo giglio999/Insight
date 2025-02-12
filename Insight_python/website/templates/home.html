@@ -1,0 +1,510 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+  %}
+  
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          font-family: sans-serif;
+        }
+       
+        .chartCard {
+          width: 100%;
+          height: 100%;
+          display: inline-block;
+          align-items: center;
+          justify-content: center;
+          padding-top: 3%;
+        }
+        .chartBox {
+          width: 30%;
+          padding-top: 0 50px;
+          padding: 0 50px;
+          display: inline-block;
+          margin: 0 60px;
+          border-radius: 20px;
+          border: solid 3px rgba(54, 162, 235, 1);
+          background: white;
+        }
+  
+        .titulo{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+  
+        .separacao{
+          margin-top: 3%;
+        }
+  
+        .buscaTempo{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .buscar{
+          width: 30%;
+          height: 40px;
+          border-radius: 12px;
+        }
+  
+        .buscarBox{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+  
+        html, body {
+          background-image:url('static/img/wallpaper.png');
+          background-color: #cccccc;
+          height: fit-content;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+  
+        .grafico1{
+          text-align: center;
+          padding-top: 7%;
+        }
+  
+        .insight{
+          padding-top: 3%;
+         
+        }
+  
+      </style>
+  </head>
+  
+  <body class="graficos"> 
+      
+      <div class="grafico1">
+          <div class="chartCard">
+              <!-- grafico 1-->
+            <div class="chartBox">
+              <h1 class="titulo">Reclamações</h1>
+              <canvas id="myChart"></canvas>
+            </div>
+              <!-- grafico 2-->
+            <div class="chartBox">
+              <h1 class="titulo">Respostas</h1>
+              <canvas id="myChart2"></canvas>
+            </div>
+            
+             <!-- grafico 3-->
+            <div class="chartBox">
+              <h1 class="titulo">Nota média</h1>
+              <canvas id="myChart3"></canvas>
+            </div>
+            
+            <!-- grafico 4-->
+            <div class="chartBox">
+              <h1 class="titulo">Aguardando respostas</h1>
+              <canvas id="myChart4"></canvas>
+            </div>
+  
+            <!-- grafico 5-->
+            <div class="chartBox">
+              <h1 class="titulo">Voltariam a fazer negócios</h1>
+              <canvas id="myChart5"></canvas>
+            </div>
+  
+            <!-- grafico 6-->
+            <div class="chartBox">
+              <h1 class="titulo">Tempo de resposta</h1>
+              <canvas id="myChart6"></canvas>
+            </div>
+  
+          </div>
+  
+          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+          <script>
+            
+            const recebidas6 = {{recebidas6}}
+            const recebidas12 = {{recebidas12}}
+            const recebidas2023 = {{recebidas2023}}
+            const recebidas2022 = {{recebidas2022}}
+            const recebidas_geral = {{recebidas_geral}}
+  
+            const respondidas6 = {{respondidas6}}
+            const respondidas12 = {{respondidas12}}
+            const respondidas2023 = {{respondidas2023}}
+            const respondidas2022 = {{respondidas2022}}
+            const respondidas_geral = {{respondidas_geral}}
+  
+            const agurdando6 = {{agurdando6}}
+            const agurdando12 = {{agurdando12}}
+            const agurdando2023 = {{agurdando2023}}
+            const agurdando2022 = {{agurdando2022}}
+            const agurdando_geral = {{agurdando_geral}}
+  
+            const avaliada6 = {{avaliada6}}
+            const avaliada12 = {{avaliada12}}
+            const avaliada2023 = {{avaliada2023}}
+            const avaliada2022 = {{avaliada2022}}
+            const avaliada_geral = {{avaliada_geral}}
+  
+            const media6 = {{media6}}
+            const media12 = {{media12}}
+            const media2023 = {{media2023}}
+            const media2022 = {{media2022}}
+            const media_geral = {{media_geral}}
+  
+            const voltariam6 = {{voltariam6}}
+            const voltariam12 = {{voltariam12}}
+            const voltariam2023 = {{voltariam2023}}
+            const voltariam2022 = {{voltariam2022}}
+            const voltariam_geral = {{voltariam_geral}}
+  
+            const tempo6 = {{tempo6}}
+            const tempo12 = {{tempo12}}
+            const tempo2023 = {{tempo2023}}
+            const tempo2022 = {{tempo2022}}
+            const tempo_geral = {{tempo_geral}}
+  
+  
+  
+  
+  
+  
+          // setup 
+          const data = {
+            labels: ['6 meses', '12 meses', '2023', '2022', 'geral'],
+            datasets: [{
+              label: '',
+              data: [recebidas6, recebidas12, recebidas2023, recebidas2022, recebidas_geral],
+              backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 205, 86)',
+              'rgb(201, 203, 207)',
+              'rgb(54, 162, 235)'
+                
+              ],
+              borderColor: [
+              'rgb(255, 99, 132)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 205, 86)',
+              'rgb(201, 203, 207)',
+              'rgb(54, 162, 235)'
+               
+              ],
+              borderWidth: 1
+            }
+              ]
+          }
+    
+          // config 
+          const config = {
+            type: 'line',
+            data,
+            options: {
+            aspectRatio:1,
+            
+            }
+          };
+      
+          // render init block
+          const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+          );
+      
+        
+      
+       
+  
+  
+          // setup 
+          const data2 = {
+              labels: ['Respondidas', 'Não Respondidas'],
+              datasets: [{
+                label: '%',
+                data: [respondidas_geral, respondidas_geral-100 ],
+                backgroundColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)',               
+                ],
+                borderColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)', 
+                ],
+                borderWidth: 1
+              },
+              {
+                label: '%',
+                data: [respondidas2022, respondidas2022-100 ],
+                backgroundColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)',               
+                ],
+                borderColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)', 
+                ],
+                borderWidth: 1
+              },
+              {
+                label: '%',
+                data: [respondidas2023, respondidas2023-100 ],
+                backgroundColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)',               
+                ],
+                borderColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)', 
+                ],
+                borderWidth: 1
+              },
+              {
+                label: '%',
+                data: [respondidas12, respondidas12-100 ],
+                backgroundColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)',               
+                ],
+                borderColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)', 
+                ],
+                borderWidth: 1
+              },
+              {
+                label: '%',
+                data: [respondidas6, respondidas6-100 ],
+                backgroundColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)',               
+                ],
+                borderColor: [
+                  'rgba(34, 139, 34, 0.2)', 
+                  'rgba(255, 26, 104, 0.2)', 
+                ],
+                borderWidth: 1
+              }
+                ]
+          }
+      
+          // config 
+          const config2 = {
+          type: 'pie',
+          data: data2,
+          options: {
+              
+              }
+          };
+        
+          // render init block
+          const myChart2 = new Chart(
+              document.getElementById('myChart2'),
+              config2
+          );
+      
+  
+  
+  
+  
+  
+          // setup 
+          const data3 = {
+            labels: ['6 meses', '12 meses', '2023', '2022', 'geral'],
+          datasets: [{
+            label: 'Avaliações',
+            data: [avaliada6, avaliada12, avaliada2023, avaliada2022, avaliada_geral],
+            fill: true,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
+          }, {
+            label: 'Média',
+            data: [media6, media12, media2023, media2022, media_geral],
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+          }]
+        };
+      
+          // config 
+          const config3 = {
+              type: 'radar',
+              data: data3,
+              options: {
+              aspectRatio:1,
+              
+              }
+          };
+        
+            // render init block
+            const myChart3 = new Chart(
+              document.getElementById('myChart3'),
+              config3
+            );
+  
+  
+  
+  
+  
+  
+          // setup 
+          const data4 = {
+            labels: ['6 meses', '12 meses', '2023', '2022', 'geral'],
+            datasets: [{
+              label: '',
+              data: [agurdando6, agurdando12, agurdando2023, agurdando2022, agurdando_geral],
+              backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 205, 86)',
+              'rgb(201, 203, 207)',
+              'rgb(54, 162, 235)'
+                
+              ],
+              borderColor: [
+              'rgb(255, 99, 132)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 205, 86)',
+              'rgb(201, 203, 207)',
+              'rgb(54, 162, 235)'
+               
+              ],
+              borderWidth: 1
+            }
+              ]
+          }
+    
+          // config 
+          const config4 = {
+              type: 'bar',
+              data: data4,
+              options: {
+              aspectRatio:1,
+              }
+          };
+        
+            // render init block
+            const myChart4 = new Chart(
+              document.getElementById('myChart4'),
+              config4
+            );
+  
+  
+  
+  
+  
+  
+          // setup 
+          const data5 = {
+            labels: ['6 meses', '12 meses', '2023', '2022', 'geral'],
+            datasets: [{
+              label: '%',
+              data: [voltariam6, voltariam12, voltariam2023, voltariam2022, voltariam_geral],
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                
+              ],
+              borderWidth: 1
+            }
+              ]
+          }
+    
+          // config 
+          const config5 = {
+              type: 'polarArea',
+              data: data5,
+              options: {
+              aspectRatio:1,
+              }
+          };
+        
+            // render init block
+            const myChart5 = new Chart(
+              document.getElementById('myChart5'),
+              config5
+            );
+  
+  
+  
+  
+  
+  
+          // setup 
+          const data6 = {
+            labels: ['6 meses', '12 meses', '2023', '2022', 'geral'],
+            datasets: [{
+              label: 'Horas',
+              data: [tempo6, tempo12, tempo2023, tempo2022, tempo_geral],
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                
+              ],
+              borderWidth: 1
+            }
+              ]
+          }
+    
+          // config 
+          const config6 = {
+              type: 'polarArea',
+              data: data6,
+              options: {
+              aspectRatio:1,
+              }
+          };
+        
+            // render init block
+            const myChart6 = new Chart(
+              document.getElementById('myChart6'),
+              config6
+            );
+  
+  
+  
+  
+  
+          
+              // Instantly assign Chart.js version
+            const chartVersion = document.getElementById('chartVersion');
+            chartVersion.innerText = Chart.version;
+          </script>
+      </div>
+  
+  </body>
+  
+  {% endblock %}
